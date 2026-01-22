@@ -1,0 +1,13 @@
+[Unit]
+Description=FastAPI Calculator Service
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/opt/calculator
+ExecStart=/usr/local/bin/uvicorn app:app --host 127.0.0.1 --port 8000
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
