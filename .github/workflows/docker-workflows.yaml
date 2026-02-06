@@ -23,6 +23,7 @@ jobs:
         run: docker push subin1devops/pyapp:latest
 
   Deploy-to-aws:
+    needs: build-python-docker-image
     runs-on: ubuntu-latest
     steps:
       - name: copy content
@@ -35,5 +36,6 @@ jobs:
           docker pull subin1devops/pyapp:latest
           docker run -d -p 7072:8000 subin1devops/pyapp:latest
           ENDSSH
+
 
 
