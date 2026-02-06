@@ -32,10 +32,11 @@ jobs:
         run: chmod 600 devops-tos.pem
       - name: login to server
         run: |
-          ssh -o StrictHostKeyChecking=no -i devops-tos.pem  ${{ vars.SSH_USER }}@{{ vars.SERVER_IP }} << 'ENDSSH'
+          ssh -o StrictHostKeyChecking=no -i devops-tos.pem  ${{ vars.SSH_USER }}@${{ vars.SERVER_IP }} << 'ENDSSH'
           docker pull subin1devops/pyapp:latest
           docker run -d -p 7072:8000 subin1devops/pyapp:latest
           ENDSSH
+
 
 
 
