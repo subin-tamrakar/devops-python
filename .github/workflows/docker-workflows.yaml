@@ -19,8 +19,9 @@ jobs:
         with:
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PAT_KEY }}
-      - push: push to dockerhub
+      - name: push to dockerhub
         run: docker push subin1devops/pyapp:latest
           
       
+
 
