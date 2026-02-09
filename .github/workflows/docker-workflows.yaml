@@ -21,8 +21,23 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PAT_KEY }}
       - name: push to dockerhub
         run: docker push subin1devops/pyapp:latest
-          
-      
+
+  Deploy-to-aws:
+    needs: build-python-docker-image
+    runs-on: ubuntu-latest
+    steps:
+      - name: copy content
+        run: echo "${{ secrets.SSH_KEY}}" > devops-tos.pem
+      - name: Give permission to aws
+        run: chmod 600 devops-tos.pem
+      - name: login to server
+        run: |
+          ssh -o StrictHostKeyChecking=no -i devops-tos.pem  ${{ vars.SSH_USER }}@${{ vars.SERVER_IP }} << 'ENDSSH'
+          docker pull subin1devops/pyapp:latest
+          docker run -d -p 7072:8000 subin1devops/pyapp:latest
+          ENDSSH
+
+
 
 
 
